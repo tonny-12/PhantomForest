@@ -3,12 +3,17 @@
 public class MyPlayerController : MonoBehaviour
 {
     public float moveSpeed;
+    private float currentMoveSpeed;
+    public float diagonalMoveModifier;
 
     private Animator anim;
     private Rigidbody2D playerRigidbody;
 
     private bool playerMoving;
     private Vector2 lastMove;
+    private Vector2 moveInput;
+
+    private static bool playerExists;
 
     private bool attacking;
     public float attackTime;
@@ -18,6 +23,18 @@ public class MyPlayerController : MonoBehaviour
     void Start() {
         anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody2D>();
+
+        if(!playerExists)
+        {
+            playerExists = true;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        lastMove = new Vector2(0, -1f);
     }
 
     // Update is called once per frame 
@@ -27,7 +44,7 @@ public class MyPlayerController : MonoBehaviour
 
         if (!attacking)
         {
-
+            /*
             if (Input.GetAxisRaw("Horizontal") > 0.5f || Input.GetAxisRaw("Horizontal") < -0.5f)
             {
                 playerRigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, playerRigidbody.velocity.y);
@@ -53,6 +70,20 @@ public class MyPlayerController : MonoBehaviour
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0f);
             }
+            */
+
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+            if(moveInput != Vector2.zero)
+            {
+                playerRigidbody.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed);
+                playerMoving = true;
+                lastMove = moveInput;
+            }
+            else
+            {
+                playerRigidbody.velocity = Vector2.zero;
+            }
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -61,6 +92,17 @@ public class MyPlayerController : MonoBehaviour
                 playerRigidbody.velocity = Vector2.zero;
                 anim.SetBool("Attack", true);
             }
+
+            /*
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f && Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f)
+            {
+                currentMoveSpeed = moveSpeed * diagonalMoveModifier;
+            }
+            else
+            {
+                currentMoveSpeed = moveSpeed;
+            }
+            */
 
         }
 
