@@ -7,7 +7,7 @@ public class AboutBack : MonoBehaviour {
 
     public bool isBack;
 
-    void onMouseUp()
+    void OnMouseUp()
     {
         if (isBack)
         {

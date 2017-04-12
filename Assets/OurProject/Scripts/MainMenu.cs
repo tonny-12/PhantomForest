@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour {
     public bool isAbout;
     public bool isExit;
 
-    void onMouseUp()
+    void OnMouseUp()
     {
         if(isStart)
         {
