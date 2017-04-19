@@ -13,15 +13,15 @@ public class MyUIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (!UIExists)
-        {
-            UIExists = true;
-            DontDestroyOnLoad(transform.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if (!UIExists)
+        //{
+            //UIExists = true;
+            //DontDestroyOnLoad(transform.gameObject);
+        //}
+        //else
+        //{
+            //Destroy(gameObject);
+        //}
     }
 	
 	// Update is called once per frame

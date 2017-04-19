@@ -5,7 +5,7 @@ public class MyHurtEnemy : MonoBehaviour {
     public int damageToGive;
     public GameObject damageBurst;
 
-    public GameObject damageNumber;
+    //public GameObject damageNumber;
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +23,13 @@ public class MyHurtEnemy : MonoBehaviour {
         {
             other.gameObject.GetComponent<MyEnemyHealth>().HurtEnemy(damageToGive);
             Instantiate(damageBurst, transform.position, transform.rotation);
-            var clone = (GameObject) Instantiate(damageNumber, transform.position, Quaternion.Euler(Vector3.zero));
-            clone.GetComponent<MyFloatingNumbers>().damageNumber = damageToGive;
+            //var clone = (GameObject) Instantiate(damageNumber, transform.position, Quaternion.Euler(Vector3.zero));
+            //clone.GetComponent<MyFloatingNumbers>().damageNumber = damageToGive;
+        }
+        if (other.gameObject.tag == "Boss")
+        {
+            other.gameObject.GetComponent<MyBossHealth>().HurtEnemy(damageToGive+5);
+            Instantiate(damageBurst, transform.position, transform.rotation);
         }
     }
 }
